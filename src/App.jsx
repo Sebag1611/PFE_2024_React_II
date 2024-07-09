@@ -11,10 +11,18 @@ import {
 } from 'reactstrap'
 
 /*Importaciones*/
-import ContenidoInicioFragment from "./fragments/ContenidoInicioFragment"
+import Inicio from "./Inicio.jsx";
+import Destacados from "./Destacados.jsx";
+import AcercaDe from "./AcercaDe.jsx";
 
 /*Component:view*/
 function App() {
+    const [menu, setMenu] = useState('inicio') // 'Inicio' - 'Destacado'
+
+    const handleChangeMenuDestacado = () => {
+        setMenu('destacado')
+    }
+
   return (
     <>
       <Container className="border">
@@ -22,25 +30,40 @@ function App() {
             <Col md="12" xs="12">
                 <Nav pills className={"mt-2"}>
                     <NavItem>
-                        <NavLink
-                            active
-                            href="#"
-                        >
-                            Link
+                        <NavLink href="#" onClick={() => setMenu('inicio')}>
+                            Inicio
                         </NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">
-                            Link
+                        <NavLink href="#" onClick={handleChangeMenuDestacado}>
+                            Destacados
+                        </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink href="#" onClick={() => setMenu('acercaDe')}>
+                            Acerca de
                         </NavLink>
                     </NavItem>
                 </Nav>
             </Col>
         </Row>
         <Row className="mt-2">
-            <Col md="12" xs="12">
-                <ContenidoInicioFragment />
-            </Col>
+            {/* condition rendering */}
+            {menu === 'inicio' &&
+                <>
+                    <Inicio/>
+                </>
+            }
+            {menu === 'destacados' &&
+                <>
+                    <Destacados/>
+                </>
+            }
+            {menu === 'acercaDe' &&
+                <>
+                    <AcercaDe/>
+                </>
+            }
         </Row>
       </Container>
     </>
